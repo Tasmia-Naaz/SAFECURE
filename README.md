@@ -170,8 +170,9 @@ For support, email: safecure.care123@gmail.com
 
 - [Live Demo](https://your-deployment-url.com)
 - [Documentation](https://github.com/yourusername/safecure/wiki)
-- [Report Issues](https://github.com/yourusername/safecure/issues)
+- [Report Issues](https://github.com/Tasmia-Naaz/SAFECURE)
 
 ---
 
 **Made with ❤️ for better healthcare decisions**
+
