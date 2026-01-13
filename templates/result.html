@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Opinion Result - SafeCure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #00BFA5;
+            --accent-color: #F44336;
+            --success-color: #4CAF50;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --light-grey: #F5F5F5;
+        }
+
+        details summary {
+            transition: all 0.3s ease;
+            list-style: none;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary::before {
+            content: '▶';
+            margin-right: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        details summary:hover {
+            opacity: 1 !important;
+        }
+
+        details[open] summary {
+            margin-bottom: 10px;
+            opacity: 1 !important;
+        }
+
+        code {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="%234A90E2" fill-opacity="0.03" font-size="20" y="50%">🩺</text></svg>');
+            background-repeat: repeat;
+            background-size: 80px 80px;
+        }
+
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .result-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+        
+        .status-badge {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        
+        .appropriate {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .verification-needed {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .risk-item, .indication-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        .myth-card {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, #55efc4 0%, #00b894 100%);
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .urgency-box {
+            background-color: #ffe5e5;
+            border: 2px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .recovery-box {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .print-btn {
+            border-radius: 50px;
+            padding: 10px 30px;
+        }
+
+        .status-badge {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .section-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .guideline-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .evidence-level {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .biomarker-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffeb99 100%);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .contraindication-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background-color: #ffebee;
+            border-left: 3px solid #f44336;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <i class="fas fa-heartbeat"></i> SafeCure
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/consultation"><i class="fas fa-stethoscope"></i> New Consultation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history"><i class="fas fa-history"></i> History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    <div class="result-header">
+        <div class="container">
+            <h1><i class="fas fa-file-medical-alt"></i> Second Opinion Result</h1>
+            <p class="lead mb-0">Comprehensive treatment analysis</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        {% if result.status == 'found' %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <!-- Guideline Source Badge -->
+                        {% if result.guideline_source %}
+                        <div class="text-center mb-3">
+                            <span class="guideline-badge">
+                                <i class="fas fa-book-medical"></i> Based on {{ result.guideline_source }}
+                            </span>
+                            {% if result.guideline_url %}
+                            <div class="mt-2">
+                                <a href="{{ result.guideline_url }}" target="_blank" class="text-primary small">
+                                    <i class="fas fa-external-link-alt"></i> View Official Guidelines
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="text-center mb-4">
+                            {% if result.cancer_type %}
+                            <h3 class="mb-2">{{ result.cancer_type }}</h3>
+                            {% if result.stage %}
+                            <!-- FIXED: Stage display with larger font -->
+                            <p class="mb-2" style="font-size: 1.3rem; font-weight: 600; color: #667eea;">{{ result.stage }}</p>
+                            {% if result.stage_description %}
+                            <!-- FIXED: Stage description with larger, more prominent font -->
+                            <p style="font-size: 1.1rem; color: #555; font-weight: 500; margin-bottom: 20px;">{{ result.stage_description }}</p>
+                            {% endif %}
+                            {% endif %}
+                            {% else %}
+                            <h3 class="mb-3">{{ result.treatment_name }}</h3>
+                            {% endif %}
+                            
+                            <!-- FIXED: Status badge moved to next line for better layout -->
+                            <div class="mt-3">
+                                <span class="status-badge {% if 'Aligned' in result.get('alignment', result.get('appropriateness', '')) %}appropriate{% else %}verification-needed{% endif %}">
+                                    <i class="fas {% if 'Aligned' in result.get('alignment', result.get('appropriateness', '')) %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %}"></i>
+                                    {{ result.get('alignment', result.get('appropriateness', 'Status Unknown')) }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Evidence Level (for guideline-based results) -->
+                        {% if result.evidence_level %}
+                        <div class="evidence-level">
+                            <strong><i class="fas fa-certificate"></i> Evidence Level:</strong> {{ result.evidence_level }}
+                            {% if result.alignment_details %}
+                            <p class="mb-0 mt-2 small">{{ result.alignment_details }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <!-- Key Metrics Summary -->
+                        <div style="background: linear-gradient(135deg, #f0f4ff 0%, #f9f5ff 100%); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #667eea;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div style="text-align: center;">
+                                    <p style="margin: 0; font-size: 0.85rem; color: #666;"><i class="fas fa-heartbeat"></i> Survival Rate</p>
+                                    <p style="margin: 5px 0 0 0; font-size: 1.4rem; font-weight: bold; color: #667eea;">{{ result.survival_rate }}</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <p style="margin: 0; font-size: 0.85rem; color: #666;"><i class="fas fa-hourglass-end"></i> Recovery Time</p>
+                                    <p style="margin: 5px 0 0 0; font-size: 1.4rem; font-weight: bold; color: #667eea;">{{ result.recovery_time }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <strong><i class="fas fa-info-circle"></i> Your Input:</strong>
+                            <p class="mb-1"><strong>Symptoms/Diagnosis:</strong> {{ symptoms }}</p>
+                            <p class="mb-0"><strong>Recommended Treatment:</strong> {{ treatment }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biomarker Tests Required (for guideline-based results) -->
+                {% if result.biomarker_tests_required %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-microscope"></i> Required Biomarker Tests</h5>
+                        <div class="biomarker-box">
+                            <p class="mb-2"><strong>Essential tests before treatment:</strong></p>
+                            <ul class="mb-0">
+                                {% for test in result.biomarker_tests_required %}
+                                <li>{{ test }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% if result.special_notes %}
+                            <p class="mt-3 mb-0"><small><i class="fas fa-info-circle"></i> {{ result.special_notes }}</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Standard Treatment (for guideline-based results) -->
+                {% if result.standard_treatment %}
+<div class="card" style="border-left: 5px solid #667eea;">
+    <div class="card-body">
+        <h5 class="section-title"><i class="fas fa-procedures"></i> Standard Treatment According to Guidelines</h5>
+        
+        <!-- SIMPLE EXPLANATION - PROMINENT DISPLAY -->
+        {% if result.standard_treatment_simple %}
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);">
+            <h5 style="color: white; margin-top: 0; margin-bottom: 15px;">
+                <i class="fas fa-lightbulb"></i> What This Means in Simple Terms:
+            </h5>
+            <p style="font-size: 17px; line-height: 1.8; margin-bottom: 0;">
+                {{ result.standard_treatment_simple }}
+            </p>
+            
+            <!-- Expandable Technical Details -->
+            <details style="margin-top: 15px;">
+                <summary style="cursor: pointer; font-weight: bold; opacity: 0.9; padding: 8px 0;">
+                    <i class="fas fa-stethoscope"></i> View Medical Terminology
+                </summary>
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <code style="color: #fff; font-size: 14px; word-wrap: break-word; display: block;">
+                        {{ result.standard_treatment_technical or result.standard_treatment }}
+                    </code>
+                </div>
+            </details>
+        </div>
+        {% else %}
+        <!-- Fallback if no simplified version available -->
+        <div class="alert alert-success">
+            {{ result.standard_treatment }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+                <!-- Adjuvant Therapy (for guideline-based results) -->
+                {% if result.adjuvant_therapy %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-syringe"></i> Adjuvant Therapy Options</h5>
+                        {% if result.adjuvant_therapy is mapping %}
+                            {% for key, value in result.adjuvant_therapy.items() %}
+                            <div class="indication-item">
+                                <strong>{{ key.replace('_', ' ').title() }}:</strong> {{ value }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>{{ result.adjuvant_therapy }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if result.matching_indications %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-check-double"></i> Matching Indications</h5>
+                        {% for indication in result.matching_indications %}
+                        <div class="indication-item">
+                            <i class="fas fa-check text-success"></i> {{ indication|title }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="urgency-box">
+                                    <h5><i class="fas fa-clock"></i> Urgency Level</h5>
+                                    <p class="mb-0"><strong>{{ result.urgency }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="recovery-box">
+                                    <h5><i class="fas fa-heart-pulse"></i> Recovery Time</h5>
+                                    <p class="mb-0"><strong>{{ result.recovery_time }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div style="background: linear-gradient(135deg, #e7d4f5 0%, #ddd6f3 100%); border: 2px solid #667eea; padding: 15px; border-radius: 10px;">
+                                    <h5><i class="fas fa-chart-line"></i> Survival Rate</h5>
+                                    <p class="mb-3" style="font-size: 1.3rem; font-weight: bold; color: #667eea;">{{ result.survival_rate }}</p>
+                                    {% if result.survival_rate %}
+                                    <small class="text-muted" style="display: block;">Expected positive treatment outcomes with this approach</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if result.estimated_cost %}
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div style="background-color: #fef3e2; border: 2px solid #f59e0b; padding: 15px; border-radius: 10px;">
+                                    <h5><i class="fas fa-money-bill-wave"></i> Estimated Cost</h5>
+                                    <p class="mb-2"><strong>{{ result.estimated_cost }}</strong></p>
+                                    {% if result.cost_usd %}
+                                    <small class="text-muted">(Approximately {{ result.cost_usd }})</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if result.ml_confidence %}
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div style="background-color: #d4f1f4; border: 2px solid #06bcee; padding: 15px; border-radius: 10px; text-align: center;">
+                                    <h5><i class="fas fa-robot"></i> ML Confidence</h5>
+                                    <p class="mb-0"><strong>{{ (result.ml_confidence * 100)|round|int }}%</strong></p>
+                                    <small class="text-muted">{{ result.ml_prediction }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Potential Risks -->
+                {% if result.potential_risks or result.risks %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-exclamation-triangle"></i> Potential Risks & Side Effects</h5>
+                        {% for risk in result.get('potential_risks', result.get('risks', [])) %}
+                        <div class="risk-item">
+                            <i class="fas fa-warning text-warning"></i> {{ risk }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Contraindications (for guideline-based results) -->
+                {% if result.contraindications %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-ban"></i> Contraindications</h5>
+                        <p class="text-muted mb-3">Conditions where this treatment should be avoided or used with caution:</p>
+                        {% for contraindication in result.contraindications %}
+                        <div class="contraindication-item">
+                            <i class="fas fa-exclamation-circle text-danger"></i> {{ contraindication }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Alternative Treatments -->
+                {% if result.safe_alternatives or result.alternative_treatments %}
+                <div class="card" style="border-left: 5px solid #28a745; background-color: #f0fdf4;">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-shield-alt"></i> Alternative Treatment Options</h5>
+                        <p class="text-muted mb-3">Other treatment options that may be considered based on your condition:</p>
+                        
+                        {% if result.safe_alternatives %}
+                            {% for alt in result.safe_alternatives %}
+                            <div style="padding: 15px; margin-bottom: 12px; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border-radius: 10px; border-left: 5px solid #16a34a; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div style="flex: 1;">
+                                        <h6 class="mb-2" style="color: #15803d;"><i class="fas fa-check-circle"></i> {{ alt.name }}</h6>
+                                        {% if alt.reason %}
+                                        <p class="mb-2"><small><strong>Why it's an alternative:</strong> {{ alt.reason }}</small></p>
+                                        {% endif %}
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                            {% if alt.survival_rate %}
+                                            <div>
+                                                <small><strong>Survival Rate:</strong></small>
+                                                <p class="mb-0" style="font-size: 0.9rem; color: #15803d;"><strong>{{ alt.survival_rate }}</strong></p>
+                                            </div>
+                                            {% endif %}
+                                            {% if alt.recovery_time %}
+                                            <div>
+                                                <small><strong>Recovery Time:</strong></small>
+                                                <p class="mb-0" style="font-size: 0.9rem; color: #15803d;"><strong>{{ alt.recovery_time }}</strong></p>
+                                            </div>
+                                            {% endif %}
+                                            {% if alt.estimated_cost %}
+                                            <div class="mt-2" style="grid-column: 1/3;">
+                                                <small><strong><i class="fas fa-tag"></i> Estimated Cost:</strong></small>
+                                                <p class="mb-0" style="font-size: 0.9rem; color: #15803d;"><strong>{{ alt.estimated_cost }}</strong></p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% elif result.alternative_treatments %}
+                            {% for alt in result.alternative_treatments %}
+                            <div class="indication-item" style="background-color: #dcfce7; border-left-color: #16a34a;">
+                                <i class="fas fa-pills text-success"></i> {{ alt }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Myths vs Facts (if available) -->
+                {% if result.myths %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="section-title"><i class="fas fa-lightbulb"></i> Myths vs Facts</h5>
+                        
+                        <div class="myth-card">
+                            <strong><i class="fas fa-times-circle"></i> MYTH:</strong>
+                            <p class="mb-0 mt-2">{{ result.myths.myth1 }}</p>
+                        </div>
+                        <div class="fact-card">
+                            <strong><i class="fas fa-check-circle"></i> FACT:</strong>
+                            <p class="mb-0 mt-2">{{ result.myths.fact1 }}</p>
+                        </div>
+                        
+                        <div class="myth-card">
+                            <strong><i class="fas fa-times-circle"></i> MYTH:</strong>
+                            <p class="mb-0 mt-2">{{ result.myths.myth2 }}</p>
+                        </div>
+                        <div class="fact-card">
+                            <strong><i class="fas fa-check-circle"></i> FACT:</strong>
+                            <p class="mb-0 mt-2">{{ result.myths.fact2 }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Official Guidelines References (for guideline-based results) -->
+                {% if result.official_guidelines %}
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6><i class="fas fa-book-medical"></i> Official Guideline Sources</h6>
+                        <p class="mb-2">This analysis is based on internationally recognized oncology guidelines:</p>
+                        <ul class="mb-0 small">
+                            {% for source, url in result.official_guidelines.items() %}
+                            <li>
+                                <a href="{{ url }}" target="_blank">{{ source.upper() }} Guidelines <i class="fas fa-external-link-alt"></i></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6><i class="fas fa-stethoscope"></i> Important Reminder</h6>
+                        <p class="mb-0">This information is for educational purposes only. Always discuss treatment decisions with your oncologist and healthcare team. They have access to your complete medical history and can provide personalized recommendations.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/consultation" class="btn btn-primary print-btn me-2">
+                        <i class="fas fa-plus"></i> New Consultation
+                    </a>
+                    <a href="/dashboard" class="btn btn-outline-primary print-btn">
+                        <i class="fas fa-home"></i> Back to Dashboard
+                    </a>
+                    <button onclick="window.print()" class="btn btn-outline-secondary print-btn">
+                        <i class="fas fa-print"></i> Print Result
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% elif result.status == 'incomplete' %}
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body p-5">
+                        <i class="fas fa-info-circle fa-4x text-warning mb-4"></i>
+                        <h4>Additional Information Required</h4>
+                        <p class="text-muted">{{ result.message }}</p>
+                        
+                        {% if result.cancer_type %}
+                        <div class="alert alert-info text-start mt-4">
+                            <strong>Detected Cancer Type:</strong> {{ result.cancer_type }}
+                            {% if result.guideline_source %}
+                            <br><small>Guideline: {{ result.guideline_source }}</small>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        
+                        {% if result.biomarker_tests_required %}
+                        <div class="alert alert-warning text-start">
+                            <strong><i class="fas fa-microscope"></i> Required Tests:</strong>
+                            <ul class="mb-0 mt-2">
+                                {% for test in result.biomarker_tests_required %}
+                                <li>{{ test }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <a href="/consultation" class="btn btn-primary mt-3">Update Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body p-5">
+                        <i class="fas fa-search fa-4x text-muted mb-4"></i>
+                        <h4>Treatment Not Found</h4>
+                        <p class="text-muted">{{ result.message }}</p>
+                        <a href="/consultation" class="btn btn-primary mt-3">Try Another Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

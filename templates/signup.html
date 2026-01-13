@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SafeCure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #00BFA5;
+            --accent-color: #F44336;
+            --success-color: #4CAF50;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --light-grey: #F5F5F5;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, rgba(0, 201, 167, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .signup-card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(0,102,204,0.2);
+            overflow: hidden;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .signup-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .signup-header h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .signup-body {
+            padding: 40px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 2px solid #CBD5E0;
+            padding: 14px 20px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0,102,204,0.25);
+        }
+
+        .form-label {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            color: #2D3748;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .form-control {
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border: none;
+            padding: 14px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            color: var(--white);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,102,204,0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .stethoscope-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .alert {
+            border-radius: 10px;
+        }
+
+        .input-group-text {
+            background-color: var(--light-grey);
+            border-right: none;
+        }
+
+        .form-control {
+            border-left: none;
+        }
+
+        .password-strength {
+            height: 5px;
+            border-radius: 3px;
+            background-color: #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .password-strength.weak { background-color: var(--accent-color); }
+        .password-strength.medium { background-color: #f39c12; }
+        .password-strength.strong { background-color: var(--success-color); }
+    </style>
+</head>
+<body>
+    <div class="signup-card">
+        <div class="signup-header">
+            <i class="fas fa-stethoscope fa-3x mb-3 stethoscope-pulse"></i>
+            <h2>Create Your Account</h2>
+            <p class="mb-0">Join SafeCure today</p>
+        </div>
+        
+        <div class="signup-body">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" action="/signup" id="signupForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" required placeholder="Create a password" minlength="6">
+                    </div>
+                    <div class="password-strength" id="strengthBar"></div>
+                    <small class="text-muted">Minimum 6 characters</small>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="confirm_password" required placeholder="Confirm your password">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-signup w-100 mb-3">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+                
+                <div class="text-center">
+                    <p class="mb-0">Already have an account? <a href="/login" class="text-decoration-none fw-bold">Login</a></p>
+                    <a href="/" class="text-muted text-decoration-none small">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm_password');
+        const strengthBar = document.getElementById('strengthBar');
+        const form = document.getElementById('signupForm');
+        
+        password.addEventListener('input', function() {
+            const val = this.value;
+            let strength = 0;
+            
+            if (val.length >= 6) strength++;
+            if (val.length >= 10) strength++;
+            if (/[a-z]/.test(val) && /[A-Z]/.test(val)) strength++;
+            if (/\d/.test(val)) strength++;
+            if (/[^a-zA-Z\d]/.test(val)) strength++;
+            
+            strengthBar.className = 'password-strength';
+            if (strength <= 2) strengthBar.classList.add('weak');
+            else if (strength <= 4) strengthBar.classList.add('medium');
+            else strengthBar.classList.add('strong');
+        });
+        
+        form.addEventListener('submit', function(e) {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+                confirmPassword.focus();
+            }
+        });
+    </script>
+</body>
+</html>

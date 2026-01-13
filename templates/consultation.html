@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Consultation - SafeCure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #00BFA5;
+            --accent-color: #F44336;
+            --success-color: #4CAF50;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --light-grey: #F5F5F5;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .consultation-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 40px;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .guideline-info-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f9f5ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .treatment-option {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+        
+        .treatment-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .guideline-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+
+        .example-box {
+            background-color: #f8f9fa;
+            border: 1px dashed #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <i class="fas fa-heartbeat"></i> SafeCure
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/consultation"><i class="fas fa-stethoscope"></i> New Consultation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/history"><i class="fas fa-history"></i> History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="consultation-header">
+        <div class="container">
+            <h1><i class="fas fa-stethoscope"></i> New Consultation</h1>
+            <p class="lead mb-0">Get a second opinion on your recommended treatment</p>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i> 
+                            <strong>Important:</strong> This system provides informational support only. Always consult with qualified healthcare professionals for medical decisions.
+                        </div>
+
+                        <div class="guideline-info-box">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-book-medical fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="mb-2"><strong>Evidence-Based Analysis</strong></h6>
+                                    <p class="mb-0 small">Our system uses internationally recognized oncology guidelines from <strong>NCCN, ASCO, and ESMO</strong> (2025) combined with rule-based knowledge to provide comprehensive second opinions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <form method="POST" action="/consultation">
+                            <div class="mb-4">
+                                <label for="symptoms" class="form-label">
+                                    <i class="fas fa-notes-medical"></i> Your Symptoms / Diagnosis
+                                </label>
+                                <textarea 
+                                    class="form-control" 
+                                    id="symptoms" 
+                                    name="symptoms" 
+                                    rows="5" 
+                                    required
+                                    placeholder="Please provide detailed information including cancer type and stage..."
+                                ></textarea>
+                                <small class="text-muted d-block mt-2">
+                                    <strong>For best results, include:</strong>
+                                    <ul class="mb-0 mt-1">
+                                        <li>Cancer type (breast, lung, colorectal, prostate)</li>
+                                        <li>Cancer stage (Stage 0, I, II, III, IV) or risk level (low, intermediate, high)</li>
+                                        <li>Any biomarker test results (if available)</li>
+                                        <li>Current symptoms</li>
+                                    </ul>
+                                </small>
+
+                                <!-- Example Box -->
+                                <div class="example-box">
+                                    <strong><i class="fas fa-lightbulb"></i> Example:</strong>
+                                    <p class="mb-1 mt-2"><em>"I was diagnosed with Stage II breast cancer (ER+/PR+, HER2-). The tumor is 2.5cm. My doctor mentioned I might need chemotherapy followed by hormonal therapy."</em></p>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="treatment" class="form-label">
+                                    <i class="fas fa-prescription"></i> Recommended Treatment
+                                </label>
+                                <select class="form-select" id="treatment-select" name="treatment-select" onchange="handleTreatmentChange()">
+                                    <option value="">-- Select Treatment --</option>
+                                    <option value="chemotherapy">Chemotherapy</option>
+                                    <option value="radiation therapy">Radiation Therapy</option>
+                                    <option value="surgery">Surgery</option>
+                                    <option value="immunotherapy">Immunotherapy</option>
+                                    <option value="targeted therapy">Targeted Therapy</option>
+                                    <option value="hormonal therapy">Hormonal Therapy</option>
+                                    <option value="combination therapy">Combination Therapy (Multiple treatments)</option>
+                                    <option value="active surveillance">Active Surveillance</option>
+                                    <option value="stem cell transplant">Stem Cell Transplant</option>
+                                    <option value="cryotherapy">Cryotherapy</option>
+                                    <option value="radiofrequency ablation">Radiofrequency Ablation (RFA)</option>
+                                    <option value="photodynamic therapy">Photodynamic Therapy</option>
+                                    <option value="other">Other (Type your treatment)</option>
+                                </select>
+                                <small class="text-muted d-block">Select the treatment your doctor has recommended</small>
+                                
+                                <!-- Custom Treatment Input (Hidden by default) -->
+                                <div id="custom-treatment-box" style="display: none; margin-top: 15px;">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="custom-treatment" 
+                                        name="custom-treatment"
+                                        placeholder="Enter your recommended treatment (e.g., CAR T-cell therapy, HIPEC, etc.)"
+                                    >
+                                    <small class="text-muted">Please type the exact treatment name recommended by your doctor</small>
+                                </div>
+                                
+                                <!-- Hidden field to submit the final treatment value -->
+                                <input type="hidden" id="treatment" name="treatment" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="fas fa-question-circle"></i> Treatment Options Explained</h6>
+                                        <ul class="mb-0 small">
+                                            <li><strong>Chemotherapy:</strong> Systemic drug treatment that kills rapidly dividing cancer cells throughout the body</li>
+                                            <li><strong>Radiation Therapy:</strong> Uses high-energy rays to destroy cancer cells in a specific targeted area</li>
+                                            <li><strong>Surgery:</strong> Physical removal of tumor and surrounding tissue; best for localized cancers</li>
+                                            <li><strong>Immunotherapy:</strong> Boosts your immune system to recognize and fight cancer cells</li>
+                                            <li><strong>Targeted Therapy:</strong> Drugs that target specific genes, proteins, or mutations in cancer cells</li>
+                                            <li><strong>Hormonal Therapy:</strong> Blocks or lowers hormones that fuel certain cancers (breast, prostate)</li>
+                                            <li><strong>Combination Therapy:</strong> Uses multiple treatment approaches together for better effectiveness</li>
+                                            <li><strong>Active Surveillance:</strong> Monitoring cancer closely without immediate treatment (watchful waiting)</li>
+                                            <li><strong>Stem Cell Transplant:</strong> Replaces damaged bone marrow with healthy stem cells</li>
+                                            <li><strong>Other Options:</strong> If your treatment isn't listed, select "Other" and type it in</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guideline Coverage Info -->
+                            <div class="card" style="border-left: 4px solid #667eea; background-color: #f9fafb;">
+                                <div class="card-body">
+                                    <h6 class="mb-3"><i class="fas fa-book-medical text-primary"></i> <strong>Guideline Coverage</strong></h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Breast Cancer:</strong></p>
+                                            <ul class="small mb-3">
+                                                <li>Stage 0 (DCIS) through Stage IV</li>
+                                                <li>ER/PR/HER2 biomarker guidance</li>
+                                                <li>Treatment by subtype</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Lung Cancer (NSCLC):</strong></p>
+                                            <ul class="small mb-3">
+                                                <li>Stage I through Stage IV</li>
+                                                <li>EGFR, ALK, KRAS guidance</li>
+                                                <li>Immunotherapy criteria</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Colorectal Cancer:</strong></p>
+                                            <ul class="small mb-3">
+                                                <li>Stage I through Stage IV</li>
+                                                <li>MSI/MMR testing</li>
+                                                <li>Surgical and systemic therapy</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Prostate Cancer:</strong></p>
+                                            <ul class="small mb-0">
+                                                <li>Low, intermediate, high risk</li>
+                                                <li>Metastatic disease</li>
+                                                <li>Active surveillance criteria</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 small text-muted">
+                                        <i class="fas fa-info-circle"></i> For other cancer types, our rule-based system will provide general treatment analysis.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-submit">
+                                    <i class="fas fa-search"></i> Get Second Opinion
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-shield-alt"></i> What You'll Receive</h5>
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Guideline-Based Analysis <span class="guideline-badge">NEW</span></strong>
+                                        <p class="small mb-0">Comparison with NCCN/ASCO/ESMO guidelines for major cancers</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Treatment Appropriateness</strong>
+                                        <p class="small mb-0">Verification against oncology guidelines and evidence levels</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Biomarker Requirements <span class="guideline-badge">NEW</span></strong>
+                                        <p class="small mb-0">Essential genetic and molecular tests before treatment</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Risk Assessment</strong>
+                                        <p class="small mb-0">Potential side effects and complications</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Alternative Options</strong>
+                                        <p class="small mb-0">Other evidence-based treatment approaches</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex">
+                                    <i class="fas fa-check-circle text-success me-2 mt-1"></i>
+                                    <div>
+                                        <strong>Recovery & Outcomes</strong>
+                                        <p class="small mb-0">Expected timeline, survival rates, and cost estimates</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Capabilities -->
+                <div class="card mt-4" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+                    <div class="card-body">
+                        <h6 class="mb-3"><i class="fas fa-cogs text-primary"></i> <strong>Dual Analysis System</strong></h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <h6 class="text-primary"><i class="fas fa-book-medical"></i> Guideline Engine</h6>
+                                    <p class="small mb-0">Uses NCCN v5.2025, ASCO, ESMO guidelines for breast, lung, colorectal, and prostate cancers with stage-specific recommendations</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <h6 class="text-primary"><i class="fas fa-brain"></i> Rule-Based System</h6>
+                                    <p class="small mb-0">General oncology knowledge base covering all treatment modalities with risk analysis and cost estimates</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-0 small text-muted">
+                            <i class="fas fa-info-circle"></i> <strong>Best Practice:</strong> Provide cancer stage information for guideline-based analysis. Without stage info, the system will use general rule-based analysis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Handle treatment selection change
+        function handleTreatmentChange() {
+            const select = document.getElementById('treatment-select');
+            const customBox = document.getElementById('custom-treatment-box');
+            const customInput = document.getElementById('custom-treatment');
+            const hiddenInput = document.getElementById('treatment');
+            
+            if (select.value === 'other') {
+                // Show custom input box
+                customBox.style.display = 'block';
+                customInput.required = true;
+                hiddenInput.value = ''; // Clear hidden field
+            } else {
+                // Hide custom input box
+                customBox.style.display = 'none';
+                customInput.required = false;
+                customInput.value = ''; // Clear custom input
+                hiddenInput.value = select.value; // Set hidden field to selected value
+            }
+        }
+        
+        // Handle custom treatment input
+        document.getElementById('custom-treatment')?.addEventListener('input', function() {
+            const hiddenInput = document.getElementById('treatment');
+            hiddenInput.value = this.value;
+        });
+        
+        // Form submission validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const select = document.getElementById('treatment-select');
+            const customInput = document.getElementById('custom-treatment');
+            const hiddenInput = document.getElementById('treatment');
+            
+            // If "Other" is selected, use custom input value
+            if (select.value === 'other') {
+                if (!customInput.value.trim()) {
+                    e.preventDefault();
+                    alert('Please enter your recommended treatment.');
+                    customInput.focus();
+                    return false;
+                }
+                hiddenInput.value = customInput.value.trim();
+            } else {
+                // Use selected value
+                if (!select.value) {
+                    e.preventDefault();
+                    alert('Please select a treatment option.');
+                    select.focus();
+                    return false;
+                }
+                hiddenInput.value = select.value;
+            }
+        });
+    </script>
+</body>
+</html>
